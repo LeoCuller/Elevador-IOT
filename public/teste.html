@@ -30,6 +30,13 @@
             Aguardando leitura...
         </div>
         
+        <div class="elevator-container">
+            <div id="elevator-animation" class="elevator">
+                <div class="elevator-door elevator-door-left"></div>
+                <div class="elevator-door elevator-door-right"></div>
+            </div>
+        </div>
+        
         <div class="controls">
             <h3>Controles Manuais da Simulação</h3>
             <div class="control-item">
@@ -81,12 +88,16 @@
                     
                     // Atualiza status da porta
                     const statusPortaDiv = document.getElementById('status-porta');
+                    const elevatorAnimation = document.getElementById('elevator-animation');
+                    
                     if (portaAberta === 1) {
                         statusPortaDiv.textContent = '🟢 Porta Aberta';
                         statusPortaDiv.className = 'status-porta porta-aberta';
+                        elevatorAnimation.classList.add('open');
                     } else {
                         statusPortaDiv.textContent = '🔴 Porta Fechada';
                         statusPortaDiv.className = 'status-porta porta-fechada';
+                        elevatorAnimation.classList.remove('open');
                     }
                 }
             } catch (error) {

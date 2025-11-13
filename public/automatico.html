@@ -37,6 +37,24 @@
         <div id="status-porta" class="status-porta">
             Aguardando simulação...
         </div>
+
+        <!-- Animação do Elevador -->
+        <div class="elevator-container">
+            <div id="elevator-animation" class="elevator">
+                <div class="elevator-door elevator-door-left"></div>
+                <div class="elevator-door elevator-door-right"></div>
+            </div>
+        </div>
+        
+        <div class="info">
+            <strong>Regras de Negócio:</strong>
+            <ul>
+                <li>Se presença == 0 (ninguém), mantém porta aberta</li>
+                <li>Se obstrução == 1 (obstruída), mantém porta aberta</li>
+                <li>Se presença == 1 (alguém) E obstrução == 0 (livre), fecha a porta</li>
+            </ul>
+            <p><strong>🤖 Modo Automático:</strong> Os valores dos sensores são gerados aleatoriamente a cada 2 segundos.</p>
+        </div>
         
         <a href="index.html" class="btn-back">← Voltar para a página inicial</a>
         <a href="teste.html" class="btn-switch">🎮 Ir para Simulação Manual</a>
@@ -80,12 +98,16 @@
                     
                     // Atualiza status da porta
                     const statusPortaDiv = document.getElementById('status-porta');
+                    const elevatorAnimation = document.getElementById('elevator-animation');
+                    
                     if (portaAberta === 1) {
                         statusPortaDiv.textContent = '🟢 Porta Aberta';
                         statusPortaDiv.className = 'status-porta porta-aberta';
+                        elevatorAnimation.classList.add('open');
                     } else {
                         statusPortaDiv.textContent = '🔴 Porta Fechada';
                         statusPortaDiv.className = 'status-porta porta-fechada';
+                        elevatorAnimation.classList.remove('open');
                     }
                 }
             } catch (error) {
