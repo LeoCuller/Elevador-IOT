@@ -60,16 +60,13 @@
     </div>
 
     <script>
-        // Função para ler os sensores e enviar ao servidor
         async function lerSensores() {
             const presenca = parseInt(document.getElementById('presenca-control').value);
             const obstrucao = parseInt(document.getElementById('obstrucao-control').value);
             
-            // Atualiza display dos sensores
             document.getElementById('presenca-status').textContent = presenca;
             document.getElementById('obstrucao-status').textContent = obstrucao;
             
-            // Envia dados ao servidor
             try {
                 const response = await fetch('/sensores', {
                     method: 'POST',
@@ -86,7 +83,6 @@
                     const data = await response.json();
                     const portaAberta = data.portaAberta;
                     
-                    // Atualiza status da porta
                     const statusPortaDiv = document.getElementById('status-porta');
                     const elevatorAnimation = document.getElementById('elevator-animation');
                     
@@ -106,7 +102,6 @@
             }
         }
         
-        // Função chamada quando usuário muda os controles manualmente
         function atualizarSensores() {
             lerSensores();
         }

@@ -45,16 +45,6 @@
             </div>
         </div>
         
-        <div class="info">
-            <strong>Regras de Negócio:</strong>
-            <ul>
-                <li>Se presença == 0 (ninguém), mantém porta aberta</li>
-                <li>Se obstrução == 1 (obstruída), mantém porta aberta</li>
-                <li>Se presença == 1 (alguém) E obstrução == 0 (livre), fecha a porta</li>
-            </ul>
-            <p><strong>🤖 Modo Automático:</strong> Os valores dos sensores são gerados aleatoriamente a cada 2 segundos.</p>
-        </div>
-        
         <a href="index.html" class="btn-back">← Voltar para a página inicial</a>
         <a href="teste.html" class="btn-switch">🎮 Ir para Simulação Manual</a>
     </div>
@@ -63,22 +53,17 @@
         let intervalo = null;
         let rodando = false;
 
-        // Função para gerar valor aleatório (0 ou 1)
         function valorAleatorio() {
             return Math.floor(Math.random() * 2);
         }
 
-        // Função para ler os sensores e enviar ao servidor
         async function lerSensores() {
-            // Gera valores aleatórios para os sensores
             const presenca = valorAleatorio();
             const obstrucao = valorAleatorio();
             
-            // Atualiza display dos sensores
             document.getElementById('presenca-status').textContent = presenca;
             document.getElementById('obstrucao-status').textContent = obstrucao;
             
-            // Envia dados ao servidor
             try {
                 const response = await fetch('/sensores', {
                     method: 'POST',
@@ -123,10 +108,8 @@
                 document.getElementById('btn-start').style.display = 'none';
                 document.getElementById('btn-stop').style.display = 'inline-block';
                 
-                // Primeira leitura imediata
                 lerSensores();
                 
-                // Configura intervalo de 2 segundos
                 intervalo = setInterval(lerSensores, 2000);
             }
         }
