@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador do Elevador IoT</title>
+    <link rel="stylesheet" href="styles/teste.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🛗 Simulador do Elevador IoT</h1>
+        
+        <div class="sensor-panel">
+            <h2>Status dos Sensores (Atualização a cada 2 segundos)</h2>
+            
+            <div class="sensor-item">
+                <h3>Sensor de Presença</h3>
+                <div class="sensor-value" id="presenca-status">-</div>
+                <small>0 = Ninguém | 1 = Alguém dentro do elevador</small>
+            </div>
+            
+            <div class="sensor-item">
+                <h3>Sensor de Obstrução</h3>
+                <div class="sensor-value" id="obstrucao-status">-</div>
+                <small>0 = Livre | 1 = Obstruída (alguém passando)</small>
+            </div>
+        </div>
+        
+        <div id="status-porta" class="status-porta">
+            Aguardando leitura...
+        </div>
+        
+        <div class="controls">
+            <h3>Controles Manuais da Simulação</h3>
+            <div class="control-item">
+                <label for="presenca-control">Sensor de Presença:</label>
+                <select id="presenca-control" onchange="atualizarSensores()">
+                    <option value="0">0 - Ninguém</option>
+                    <option value="1">1 - Alguém</option>
+                </select>
+            </div>
+            <div class="control-item">
+                <label for="obstrucao-control">Sensor de Obstrução:</label>
+                <select id="obstrucao-control" onchange="atualizarSensores()">
+                    <option value="0">0 - Livre</option>
+                    <option value="1">1 - Obstruída</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="info">
+            <strong>Regras de Negócio:</strong>
+            <ul>
+                <li>Se presença == 0 (ninguém), mantém porta aberta</li>
+                <li>Se obstrução == 1 (obstruída), mantém porta aberta</li>
+                <li>Se presença == 1 (alguém) E obstrução == 0 (livre), fecha a porta</li>
+            </ul>
+        </div>
+        
+        <a href="index.html" class="btn-back">← Voltar para a página inicial</a>
+        <a href="automatico.html" class="btn-switch">🤖 Ir para Simulação Automática</a>
+    </div>
+
+    <script>
+        // Função para ler os sensores e enviar ao servidor
+        async function lerSensores() {
+            const presenca = parseInt(document.getElementById('presenca-control').value);
+            const obstrucao = parseInt(document.getElementById('obstrucao-control').value);
+            
+            // Atualiza display dos sensores
+            document.getElementById('presenca-status').textContent = presenca;
+            document.getElementById('obstrucao-status').textContent = obstrucao;
+            
+            // Envia dados ao servidor
+            try {
+                const response = await fetch('/sensores', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        presenca: presenca,
+                        obstrucao: obstrucao
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const portaAberta = data.portaAberta;
+                    
+                    // Atualiza status da porta
+                    const statusPortaDiv = document.getElementById('status-porta');
+                    if (portaAberta === 1) {
+                        statusPortaDiv.textContent = '🟢 Porta Aberta';
+                        statusPortaDiv.className = 'status-porta porta-aberta';
+                    } else {
+                        statusPortaDiv.textContent = '🔴 Porta Fechada';
+                        statusPortaDiv.className = 'status-porta porta-fechada';
+                    }
+                }
+            } catch (error) {
+                console.error('Erro ao enviar dados:', error);
+                document.getElementById('status-porta').textContent = '⚠️ Erro de conexão com servidor';
+            }
+        }
+        
+        // Função chamada quando usuário muda os controles manualmente
+        function atualizarSensores() {
+            lerSensores();
+        }
+        
+        setInterval(lerSensores, 2000);
+        
+        lerSensores();
+    </script>
+</body>
+</html>
