@@ -1,3 +1,4 @@
+
 # 🏙️ Protótipo IoT — Controle Automático de Porta de Elevador
 
 Este projeto é um **protótipo de integração entre interface web e back-end Node.js** para simular o controle automatizado da **porta de um elevador**, reagindo conforme a leitura de sensores de presença e obstrução.
@@ -16,3 +17,8 @@ O sistema aplica regras de negócio definidas para decidir automaticamente quand
   - Se houver **alguém dentro e passagem livre** → **fecha** a porta automaticamente.
 - Comunicação front-end → back-end via requisições HTTP (`fetch`).
 - Exibição no console do servidor dos valores recebidos:
+
+🎓 Instituição
+
+🧭 Universidade Municipal de São Caetano do Sul (USCS)
+💼 Projeto acadêmico — Simulação de sistema IoT com Node.js e interface web
