@@ -1,3 +1,7 @@
+🎓 Instituição
+
+🧭 Universidade Municipal de São Caetano do Sul (USCS)
+💼 Projeto acadêmico — Simulação de sistema IoT com Node.js e interface web
 
 # 🏙️ Protótipo IoT — Controle Automático de Porta de Elevador
 
@@ -18,7 +22,4 @@ O sistema aplica regras de negócio definidas para decidir automaticamente quand
 - Comunicação front-end → back-end via requisições HTTP (`fetch`).
 - Exibição no console do servidor dos valores recebidos:
 
-🎓 Instituição
 
-🧭 Universidade Municipal de São Caetano do Sul (USCS)
-💼 Projeto acadêmico — Simulação de sistema IoT com Node.js e interface web
