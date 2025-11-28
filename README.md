@@ -20,6 +20,3 @@ O sistema aplica regras de negócio definidas para decidir automaticamente quand
   - Se houver **obstrução** → mantém a porta **aberta**.
   - Se houver **alguém dentro e passagem livre** → **fecha** a porta automaticamente.
 - Comunicação front-end → back-end via requisições HTTP (`fetch`).
-- Exibição no console do servidor dos valores recebidos:
-
-
